@@ -118,8 +118,8 @@ namespace DemoTodoListAPI.Data.Seeding
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-00000000000a"),
                     Title = "Implement EF Core Migrations",
                     Description = "Set up PostgreSQL and configure initial migrations.",
-                    DueDate = DateTime.Parse("2026-06-03 12:00:00").ToUniversalTime(),
-                    Reminder = DateTime.Parse("2026-06-02 12:00:00").ToUniversalTime(),
+                    DueDate = DateTime.UtcNow.AddDays(7), // Vence en una semana
+                    Reminder = DateTime.UtcNow.AddDays(6), // Recordatorio 1 día antes del vencimiento
                     Priority = Priority.High,
                     Status = Status.Pending
                 },
@@ -129,8 +129,8 @@ namespace DemoTodoListAPI.Data.Seeding
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-00000000000a"),
                     Title = "Design REST API Endpoints",
                     Description = "Create the spec for Task Management endpoints.",
-                    DueDate = DateTime.Parse("2026-06-05 12:00:00").ToUniversalTime(),
-                    Reminder = DateTime.Parse("2026-06-04 12:00:00").ToUniversalTime(),
+                    DueDate = DateTime.UtcNow.AddDays(10),
+                    Reminder = DateTime.UtcNow.AddDays(9),
                     Priority = Priority.Medium,
                     Status = Status.Pending
                 },
@@ -140,8 +140,8 @@ namespace DemoTodoListAPI.Data.Seeding
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-00000000000a"),
                     Title = "Add JWT Authentication",
                     Description = "Secure the API using modern token authentication.",
-                    DueDate = DateTime.Parse("2026-06-02 12:00:00").ToUniversalTime(),
-                    Reminder = DateTime.Parse("2026-06-02 00:00:00").ToUniversalTime(),
+                    DueDate = DateTime.UtcNow, // ¡PARA HOY!
+                    Reminder = DateTime.UtcNow.AddHours(-2), // Recordatorio hace 2 horas hoy mismo
                     Priority = Priority.High,
                     Status = Status.Pending
                 },
@@ -151,8 +151,8 @@ namespace DemoTodoListAPI.Data.Seeding
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-00000000000a"),
                     Title = "Write Repository Unit Tests",
                     Description = "Achieve 80% coverage on data access layer.",
-                    DueDate = DateTime.Parse("2026-06-08 12:00:00").ToUniversalTime(),
-                    Reminder = DateTime.Parse("2026-06-07 12:00:00").ToUniversalTime(),
+                    DueDate = DateTime.UtcNow.AddDays(14),
+                    Reminder = DateTime.UtcNow.AddDays(13),
                     Priority = Priority.Low,
                     Status = Status.Pending
                 },
@@ -162,8 +162,8 @@ namespace DemoTodoListAPI.Data.Seeding
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-00000000000b"),
                     Title = "Create Task Board UI Component",
                     Description = "Build a responsive Kanban board drag-and-drop view.",
-                    DueDate = DateTime.Parse("2026-06-06 12:00:00").ToUniversalTime(),
-                    Reminder = DateTime.Parse("2026-06-05 12:00:00").ToUniversalTime(),
+                    DueDate = DateTime.UtcNow.AddDays(5),
+                    Reminder = DateTime.UtcNow.AddDays(4),
                     Priority = Priority.High,
                     Status = Status.Pending
                 },
@@ -173,8 +173,8 @@ namespace DemoTodoListAPI.Data.Seeding
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-00000000000b"),
                     Title = "Integrate State Management",
                     Description = "Set up SignalR or state store for live task updates.",
-                    DueDate = DateTime.Parse("2026-06-09 12:00:00").ToUniversalTime(),
-                    Reminder = DateTime.Parse("2026-06-08 12:00:00").ToUniversalTime(),
+                    DueDate = DateTime.UtcNow.AddDays(12),
+                    Reminder = DateTime.UtcNow.AddDays(11),
                     Priority = Priority.Medium,
                     Status = Status.Pending
                 },
@@ -184,19 +184,18 @@ namespace DemoTodoListAPI.Data.Seeding
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-00000000000b"),
                     Title = "Fix CSS Layout Bugs on Mobile",
                     Description = "Repair the sidebar collapse glitch on screens under 768px.",
-                    DueDate = DateTime.Parse("2026-05-31 12:00:00").ToUniversalTime(),
-                    Reminder = DateTime.Parse("2026-05-30 12:00:00").ToUniversalTime(),
-                    Priority = Priority.Low,
+                    DueDate = DateTime.UtcNow.AddDays(-2), // Venció hace 2 días
+                    Reminder = DateTime.UtcNow.AddDays(-3),
                     Status = Status.Completed
                 },
                 new TodoItem
                 {
                     Id = Guid.Parse("019f18a5-c200-7000-8000-000000000108"),
-                    SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-00000000000b"),
+                    SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-000000000011"),
                     Title = "Submit UI Accessibility Audit",
                     Description = "Ensure contrast and aria-labels pass WCAG compliance.",
-                    DueDate = DateTime.Parse("2026-06-11 12:00:00").ToUniversalTime(),
-                    Reminder = DateTime.Parse("2026-06-10 12:00:00").ToUniversalTime(),
+                    DueDate = DateTime.UtcNow.AddDays(15),
+                    Reminder = DateTime.UtcNow.AddDays(14),
                     Priority = Priority.Medium,
                     Status = Status.Pending
                 },
@@ -206,8 +205,8 @@ namespace DemoTodoListAPI.Data.Seeding
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-00000000000c"),
                     Title = "Dockerize the Application",
                     Description = "Write Dockerfile and compose setup for local testing.",
-                    DueDate = DateTime.Parse("2026-06-04 12:00:00").ToUniversalTime(),
-                    Reminder = DateTime.Parse("2026-06-03 12:00:00").ToUniversalTime(),
+                    DueDate = DateTime.UtcNow.AddDays(3),
+                    Reminder = DateTime.UtcNow.AddDays(2),
                     Priority = Priority.High,
                     Status = Status.Pending
                 },
@@ -217,8 +216,8 @@ namespace DemoTodoListAPI.Data.Seeding
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-00000000000c"),
                     Title = "Configure GitHub Actions CI",
                     Description = "Automate building and running tests on pull requests.",
-                    DueDate = DateTime.Parse("2026-06-07 12:00:00").ToUniversalTime(),
-                    Reminder = DateTime.Parse("2026-06-06 12:00:00").ToUniversalTime(),
+                    DueDate = DateTime.UtcNow.AddDays(6),
+                    Reminder = DateTime.UtcNow.AddDays(5),
                     Priority = Priority.Medium,
                     Status = Status.Pending
                 },
@@ -228,8 +227,8 @@ namespace DemoTodoListAPI.Data.Seeding
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-00000000000c"),
                     Title = "Deploy Staging to AWS ECS",
                     Description = "Provision ECS cluster using standard infrastructure.",
-                    DueDate = DateTime.Parse("2026-06-13 12:00:00").ToUniversalTime(),
-                    Reminder = DateTime.Parse("2026-06-12 12:00:00").ToUniversalTime(),
+                    DueDate = DateTime.UtcNow.AddMonths(1), // Vence en 1 mes
+                    Reminder = DateTime.UtcNow.AddMonths(1).AddDays(-1), // Recordatorio 1 día antes del mes
                     Priority = Priority.High,
                     Status = Status.Pending
                 },
@@ -239,8 +238,8 @@ namespace DemoTodoListAPI.Data.Seeding
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-00000000000c"),
                     Title = "Setup Prometheus Monitoring",
                     Description = "Hook up metrics to track API response times.",
-                    DueDate = DateTime.Parse("2026-06-15 12:00:00").ToUniversalTime(),
-                    Reminder = DateTime.Parse("2026-06-14 12:00:00").ToUniversalTime(),
+                    DueDate = DateTime.UtcNow.AddMonths(1).AddDays(5),
+                    Reminder = DateTime.UtcNow.AddMonths(1).AddDays(4),
                     Priority = Priority.Low,
                     Status = Status.Pending
                 },
@@ -250,8 +249,8 @@ namespace DemoTodoListAPI.Data.Seeding
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-00000000000d"),
                     Title = "Weekly Grocery Shopping",
                     Description = "Buy meal prep ingredients, fruits, and snacks.",
-                    DueDate = DateTime.Parse("2026-06-01 18:00:00").ToUniversalTime(),
-                    Reminder = DateTime.Parse("2026-06-01 14:00:00").ToUniversalTime(),
+                    DueDate = DateTime.UtcNow.AddHours(6), // Vence hoy mismo en 6 horas
+                    Reminder = DateTime.UtcNow.AddHours(2), // Recordatorio hoy mismo en 2 horas
                     Priority = Priority.Medium,
                     Status = Status.Pending
                 },
@@ -261,8 +260,8 @@ namespace DemoTodoListAPI.Data.Seeding
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-00000000000d"),
                     Title = "Deep Clean Kitchen",
                     Description = "Clean the oven, fridge shelves, and countertops.",
-                    DueDate = DateTime.Parse("2026-06-03 12:00:00").ToUniversalTime(),
-                    Reminder = DateTime.Parse("2026-06-02 12:00:00").ToUniversalTime(),
+                    DueDate = DateTime.UtcNow.AddDays(2),
+                    Reminder = DateTime.UtcNow.AddDays(1),
                     Priority = Priority.Low,
                     Status = Status.Pending
                 },
@@ -272,8 +271,8 @@ namespace DemoTodoListAPI.Data.Seeding
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-00000000000d"),
                     Title = "Fix Hallway Light Fixture",
                     Description = "Replace the driver module or old LED panel.",
-                    DueDate = DateTime.Parse("2026-05-29 12:00:00").ToUniversalTime(),
-                    Reminder = DateTime.Parse("2026-05-28 12:00:00").ToUniversalTime(),
+                    DueDate = DateTime.UtcNow.AddDays(-4), // Tarea atrasada por 4 días
+                    Reminder = DateTime.UtcNow.AddDays(-5),
                     Priority = Priority.Medium,
                     Status = Status.Overdue
                 },
@@ -283,8 +282,8 @@ namespace DemoTodoListAPI.Data.Seeding
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-00000000000e"),
                     Title = "Pay Electricity & Internet Bills",
                     Description = "Process via online banking portal.",
-                    DueDate = DateTime.Parse("2026-06-02 12:00:00").ToUniversalTime(),
-                    Reminder = DateTime.Parse("2026-06-01 16:00:00").ToUniversalTime(),
+                    DueDate = DateTime.UtcNow.AddDays(1), // Vence mañana
+                    Reminder = DateTime.UtcNow.AddHours(12), // Recordatorio en 12 horas (hoy o mañana temprano)
                     Priority = Priority.High,
                     Status = Status.Pending
                 },
@@ -294,8 +293,8 @@ namespace DemoTodoListAPI.Data.Seeding
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-00000000000e"),
                     Title = "Review Monthly Budget Spreadsheet",
                     Description = "Track savings and variance relative to goals.",
-                    DueDate = DateTime.Parse("2026-06-05 12:00:00").ToUniversalTime(),
-                    Reminder = DateTime.Parse("2026-06-04 12:00:00").ToUniversalTime(),
+                    DueDate = DateTime.UtcNow.AddDays(4),
+                    Reminder = DateTime.UtcNow.AddDays(3),
                     Priority = Priority.Low,
                     Status = Status.Pending
                 },
@@ -305,8 +304,8 @@ namespace DemoTodoListAPI.Data.Seeding
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-000000000011"),
                     Title = "Book Annual Dental Checkup",
                     Description = "Call local dental clinic to schedule routine cleaning.",
-                    DueDate = DateTime.Parse("2026-06-10 09:00:00").ToUniversalTime(),
-                    Reminder = DateTime.Parse("2026-06-09 09:00:00").ToUniversalTime(),
+                    DueDate = DateTime.UtcNow.AddDays(9),
+                    Reminder = DateTime.UtcNow.AddDays(8),
                     Priority = Priority.Medium,
                     Status = Status.Pending
                 },
@@ -316,8 +315,8 @@ namespace DemoTodoListAPI.Data.Seeding
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-00000000000f"),
                     Title = "Refactor Legacy Email Module",
                     Description = "Swap out old library for a modern, decoupled wrapper.",
-                    DueDate = DateTime.Parse("2026-06-04 12:00:00").ToUniversalTime(),
-                    Reminder = DateTime.Parse("2026-06-03 12:00:00").ToUniversalTime(),
+                    DueDate = DateTime.UtcNow.AddDays(3),
+                    Reminder = DateTime.UtcNow.AddDays(2),
                     Priority = Priority.High,
                     Status = Status.Pending
                 },
@@ -327,8 +326,8 @@ namespace DemoTodoListAPI.Data.Seeding
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-00000000000f"),
                     Title = "Implement Feature Flag Toggle",
                     Description = "Add runtime flag config for new dashboard module.",
-                    DueDate = DateTime.Parse("2026-06-06 12:00:00").ToUniversalTime(),
-                    Reminder = DateTime.Parse("2026-06-05 12:00:00").ToUniversalTime(),
+                    DueDate = DateTime.UtcNow.AddDays(5),
+                    Reminder = DateTime.UtcNow.AddDays(4),
                     Priority = Priority.Medium,
                     Status = Status.Pending
                 },
@@ -338,8 +337,8 @@ namespace DemoTodoListAPI.Data.Seeding
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-00000000000f"),
                     Title = "Resolve SQL Deadlock Issues",
                     Description = "Optimize query indexing on the active transactions table.",
-                    DueDate = DateTime.Parse("2026-05-30 12:00:00").ToUniversalTime(),
-                    Reminder = DateTime.Parse("2026-05-29 12:00:00").ToUniversalTime(),
+                    DueDate = DateTime.UtcNow.AddDays(-3), // Completada en el pasado
+                    Reminder = DateTime.UtcNow.AddDays(-4),
                     Priority = Priority.High,
                     Status = Status.Completed
                 },
@@ -349,8 +348,8 @@ namespace DemoTodoListAPI.Data.Seeding
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-00000000000f"),
                     Title = "Update SDK Documentation",
                     Description = "Write API integration setup guides for client teams.",
-                    DueDate = DateTime.Parse("2026-06-10 12:00:00").ToUniversalTime(),
-                    Reminder = DateTime.Parse("2026-06-09 12:00:00").ToUniversalTime(),
+                    DueDate = DateTime.UtcNow.AddDays(9),
+                    Reminder = DateTime.UtcNow.AddDays(8),
                     Priority = Priority.Low,
                     Status = Status.Pending
                 },
@@ -360,8 +359,8 @@ namespace DemoTodoListAPI.Data.Seeding
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-000000000010"),
                     Title = "Prepare Q3 Architecture Slides",
                     Description = "Draft diagrams highlighting planned system scalability changes.",
-                    DueDate = DateTime.Parse("2026-06-05 12:00:00").ToUniversalTime(),
-                    Reminder = DateTime.Parse("2026-06-03 12:00:00").ToUniversalTime(),
+                    DueDate = DateTime.UtcNow.AddDays(4),
+                    Reminder = DateTime.UtcNow.AddDays(2),
                     Priority = Priority.High,
                     Status = Status.Pending
                 },
@@ -371,19 +370,19 @@ namespace DemoTodoListAPI.Data.Seeding
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-000000000010"),
                     Title = "Submit Bi-Weekly Timesheet",
                     Description = "Log project allocation codes accurately.",
-                    DueDate = DateTime.Parse("2026-06-07 12:00:00").ToUniversalTime(),
-                    Reminder = DateTime.Parse("2026-06-06 12:00:00").ToUniversalTime(),
+                    DueDate = DateTime.UtcNow.AddDays(6),
+                    Reminder = DateTime.UtcNow.AddDays(5),
                     Priority = Priority.Medium,
                     Status = Status.Pending
                 },
                 new TodoItem
                 {
                     Id = Guid.Parse("019f18a5-c200-7000-8000-000000000125"),
-                    SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-000000000012"),
+                    SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-000000000112"),
                     Title = "Complete Azure Developer Certification Chapter",
                     Description = "Finish the module on event-driven architectures and message queues.",
-                    DueDate = DateTime.Parse("2026-06-12 12:00:00").ToUniversalTime(),
-                    Reminder = DateTime.Parse("2026-06-11 12:00:00").ToUniversalTime(),
+                    DueDate = DateTime.UtcNow.AddDays(11),
+                    Reminder = DateTime.UtcNow.AddDays(10),
                     Priority = Priority.Low,
                     Status = Status.Pending
                 }
