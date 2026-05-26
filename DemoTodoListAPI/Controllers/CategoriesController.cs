@@ -29,7 +29,7 @@ namespace DemoTodoListAPI.Controllers
             return Ok(categoriesDTO);
         }
 
-        [HttpGet("{id:guid}", Name = "GetById")]
+        [HttpGet("{id:guid}", Name = "GetCategoryById")]
         public async Task<ActionResult<CategoryDTO>> Get(Guid id)
         {
             var category = await context.Categories.FirstOrDefaultAsync(x => x.Id == id);
@@ -58,7 +58,7 @@ namespace DemoTodoListAPI.Controllers
             {
                 return Conflict(new ProblemDetails
                 {
-                    Title = "Duplicate category",
+                    Title = "Category Conflict",
                     Detail = $"Category {model.Name} already exists",
                     Status = StatusCodes.Status409Conflict
                 });
@@ -70,7 +70,7 @@ namespace DemoTodoListAPI.Controllers
             context.Add(category);
             await context.SaveChangesAsync();
 
-            return CreatedAtRoute("GetById", new { category.Id }, category);
+            return CreatedAtRoute("GetCategoryById", new { category.Id }, category);
         }
 
         [HttpPut("{id:guid}")]
@@ -131,21 +131,16 @@ namespace DemoTodoListAPI.Controllers
                 return ValidationProblem(ModelState);
             }
 
-            var updatesName = patchDoc.Operations.Any(x => x.path.Equals("/name", StringComparison.OrdinalIgnoreCase));
+            var exists = await context.Categories.AnyAsync(x => x.Id != id && x.Name == categoryPatchDTO.Name);
 
-            if (updatesName)
+            if (exists)
             {
-                var exists = await context.Categories.AnyAsync(x => x.Id != id && x.Name == categoryPatchDTO.Name);
-
-                if (exists)
+                return Conflict(new ProblemDetails
                 {
-                    return Conflict(new ProblemDetails
-                    {
-                        Title = "Duplicate category",
-                        Detail = $"Category {categoryPatchDTO.Name} already exists",
-                        Status = StatusCodes.Status409Conflict
-                    });
-                }
+                    Title = "Duplicate category",
+                    Detail = $"Category {categoryPatchDTO.Name} already exists",
+                    Status = StatusCodes.Status409Conflict
+                });
             }
 
             mapper.Map(categoryPatchDTO, category);
