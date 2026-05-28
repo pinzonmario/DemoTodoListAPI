@@ -3,12 +3,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DemoTodoListAPI.Data.Seeding
 {
-    public static class DataSeeding
+    public class DataSeeder
     {
-        public static void Seed(ModelBuilder modelBuilder)
+        private readonly AppDbContext context;
+
+        public DataSeeder(AppDbContext context)
         {
-            #region Categories
-            modelBuilder.Entity<Category>().HasData(
+            this.context = context;
+        }
+
+        public async Task SeedAsync()
+        {
+            // ----- ----- Categories ----- -----
+            if (!await context.Categories.AnyAsync())
+            {
+                var categories = new List<Category>()
+            {
                 new Category
                 {
                     Id = Guid.Parse("019f18a5-c200-7000-8000-000000000001"),
@@ -30,11 +40,17 @@ namespace DemoTodoListAPI.Data.Seeding
                     Description = "Professional tasks, meetings, and project deadlines",
                     Order = 3
                 }
-            );
-            #endregion
+            };
 
-            #region Subcategories
-            modelBuilder.Entity<Subcategory>().HasData(
+                context.Categories.AddRange(categories);
+                await context.SaveChangesAsync(); // Guardar antes de pasar a los hijos
+            }
+
+            // ----- ----- Subcategories ----- -----
+            if (!await context.Subcategories.AnyAsync())
+            {
+                var subcategories = new List<Subcategory>()
+            {
                 new Subcategory
                 {
                     Id = Guid.Parse("019f18a5-c200-7000-8000-00000000000a"),
@@ -101,25 +117,31 @@ namespace DemoTodoListAPI.Data.Seeding
                 },
                 new Subcategory
                 {
-                    Id = Guid.Parse("019f18a5-c200-7000-8000-000000000012"),
+                    Id = Guid.Parse("019f18a5-c200-7000-8000-000000000012"), // Termina en 0012
                     CategoryId = Guid.Parse("019f18a5-c200-7000-8000-000000000003"),
                     Name = "Professional Development",
                     Description = "Certifications, technical reading, and skill building",
                     Order = 3
                 }
-            );
-            #endregion
+            };
 
-            #region TodoItems
-            modelBuilder.Entity<TodoItem>().HasData(
+                context.Subcategories.AddRange(subcategories);
+                await context.SaveChangesAsync();
+            }
+
+            // ----- ----- TodoItems ----- -----
+            if (!await context.TodoItems.AnyAsync())
+            {
+                var todoItems = new List<TodoItem>()
+            {
                 new TodoItem
                 {
                     Id = Guid.Parse("019f18a5-c200-7000-8000-000000000101"),
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-00000000000a"),
                     Title = "Implement EF Core Migrations",
                     Description = "Set up PostgreSQL and configure initial migrations.",
-                    DueDate = DateTime.UtcNow.AddDays(7), // Vence en una semana
-                    Reminder = DateTime.UtcNow.AddDays(6), // Recordatorio 1 día antes del vencimiento
+                    DueDate = DateTime.UtcNow.AddDays(7),
+                    Reminder = DateTime.UtcNow.AddDays(6),
                     Priority = Priority.High,
                     Status = Status.Pending
                 },
@@ -140,8 +162,8 @@ namespace DemoTodoListAPI.Data.Seeding
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-00000000000a"),
                     Title = "Add JWT Authentication",
                     Description = "Secure the API using modern token authentication.",
-                    DueDate = DateTime.UtcNow, // ¡PARA HOY!
-                    Reminder = DateTime.UtcNow.AddHours(-2), // Recordatorio hace 2 horas hoy mismo
+                    DueDate = DateTime.UtcNow,
+                    Reminder = DateTime.UtcNow.AddHours(-2),
                     Priority = Priority.High,
                     Status = Status.Pending
                 },
@@ -184,8 +206,9 @@ namespace DemoTodoListAPI.Data.Seeding
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-00000000000b"),
                     Title = "Fix CSS Layout Bugs on Mobile",
                     Description = "Repair the sidebar collapse glitch on screens under 768px.",
-                    DueDate = DateTime.UtcNow.AddDays(-2), // Venció hace 2 días
+                    DueDate = DateTime.UtcNow.AddDays(-2),
                     Reminder = DateTime.UtcNow.AddDays(-3),
+                    Priority = Priority.Low,
                     Status = Status.Completed
                 },
                 new TodoItem
@@ -227,8 +250,8 @@ namespace DemoTodoListAPI.Data.Seeding
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-00000000000c"),
                     Title = "Deploy Staging to AWS ECS",
                     Description = "Provision ECS cluster using standard infrastructure.",
-                    DueDate = DateTime.UtcNow.AddMonths(1), // Vence en 1 mes
-                    Reminder = DateTime.UtcNow.AddMonths(1).AddDays(-1), // Recordatorio 1 día antes del mes
+                    DueDate = DateTime.UtcNow.AddMonths(1),
+                    Reminder = DateTime.UtcNow.AddMonths(1).AddDays(-1),
                     Priority = Priority.High,
                     Status = Status.Pending
                 },
@@ -249,8 +272,8 @@ namespace DemoTodoListAPI.Data.Seeding
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-00000000000d"),
                     Title = "Weekly Grocery Shopping",
                     Description = "Buy meal prep ingredients, fruits, and snacks.",
-                    DueDate = DateTime.UtcNow.AddHours(6), // Vence hoy mismo en 6 horas
-                    Reminder = DateTime.UtcNow.AddHours(2), // Recordatorio hoy mismo en 2 horas
+                    DueDate = DateTime.UtcNow.AddHours(6),
+                    Reminder = DateTime.UtcNow.AddHours(2),
                     Priority = Priority.Medium,
                     Status = Status.Pending
                 },
@@ -271,7 +294,7 @@ namespace DemoTodoListAPI.Data.Seeding
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-00000000000d"),
                     Title = "Fix Hallway Light Fixture",
                     Description = "Replace the driver module or old LED panel.",
-                    DueDate = DateTime.UtcNow.AddDays(-4), // Tarea atrasada por 4 días
+                    DueDate = DateTime.UtcNow.AddDays(-4),
                     Reminder = DateTime.UtcNow.AddDays(-5),
                     Priority = Priority.Medium,
                     Status = Status.Overdue
@@ -282,8 +305,8 @@ namespace DemoTodoListAPI.Data.Seeding
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-00000000000e"),
                     Title = "Pay Electricity & Internet Bills",
                     Description = "Process via online banking portal.",
-                    DueDate = DateTime.UtcNow.AddDays(1), // Vence mañana
-                    Reminder = DateTime.UtcNow.AddHours(12), // Recordatorio en 12 horas (hoy o mañana temprano)
+                    DueDate = DateTime.UtcNow.AddDays(1),
+                    Reminder = DateTime.UtcNow.AddHours(12),
                     Priority = Priority.High,
                     Status = Status.Pending
                 },
@@ -337,7 +360,7 @@ namespace DemoTodoListAPI.Data.Seeding
                     SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-00000000000f"),
                     Title = "Resolve SQL Deadlock Issues",
                     Description = "Optimize query indexing on the active transactions table.",
-                    DueDate = DateTime.UtcNow.AddDays(-3), // Completada en el pasado
+                    DueDate = DateTime.UtcNow.AddDays(-3),
                     Reminder = DateTime.UtcNow.AddDays(-4),
                     Priority = Priority.High,
                     Status = Status.Completed
@@ -378,7 +401,7 @@ namespace DemoTodoListAPI.Data.Seeding
                 new TodoItem
                 {
                     Id = Guid.Parse("019f18a5-c200-7000-8000-000000000125"),
-                    SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-000000000112"),
+                    SubcategoryId = Guid.Parse("019f18a5-c200-7000-8000-000000000012"), // CORREGIDO: antes apuntaba a ...0112 que no existía
                     Title = "Complete Azure Developer Certification Chapter",
                     Description = "Finish the module on event-driven architectures and message queues.",
                     DueDate = DateTime.UtcNow.AddDays(11),
@@ -386,11 +409,17 @@ namespace DemoTodoListAPI.Data.Seeding
                     Priority = Priority.Low,
                     Status = Status.Pending
                 }
-            );
-            #endregion
+            };
 
-            #region TodoItemSteps
-            modelBuilder.Entity<TodoItemStep>().HasData(
+                context.TodoItems.AddRange(todoItems);
+                await context.SaveChangesAsync();
+            }
+
+            // ----- ----- TodoItemSteps ----- -----
+            if (!await context.TodoItemSteps.AnyAsync())
+            {
+                var todoItemSteps = new List<TodoItemStep>()
+            {
                 new TodoItemStep
                 {
                     Id = Guid.Parse("019f18a5-c200-7000-8000-000000000201"),
@@ -412,11 +441,17 @@ namespace DemoTodoListAPI.Data.Seeding
                     Title = "Run 'dotnet ef migrations add Initial'",
                     Order = 3
                 }
-            );
-            #endregion
+            };
 
-            #region TodoItemFiles
-            modelBuilder.Entity<TodoItemFile>().HasData(
+                context.TodoItemSteps.AddRange(todoItemSteps);
+                await context.SaveChangesAsync();
+            }
+
+            // ----- ----- TodoItemFiles ----- -----
+            if (!await context.TodoItemFiles.AnyAsync())
+            {
+                var todoItemFiles = new List<TodoItemFile>()
+            {
                 new TodoItemFile
                 {
                     Id = Guid.Parse("019f18a5-c200-7000-8000-000000000301"),
@@ -424,11 +459,13 @@ namespace DemoTodoListAPI.Data.Seeding
                     Name = "refactoring-spec.pdf",
                     Path = "/files/work/refactoring-spec.pdf",
                     ContentType = "application/pdf",
-                    UploadedAt = DateTime.Parse("2026-06-01 12:00:00").ToUniversalTime()
+                    UploadedAt = DateTime.UtcNow.AddDays(-2) // CORREGIDO: Fecha relativa para evitar fechas futuras erróneas
                 }
-            );
-            #endregion
+            };
 
+                context.TodoItemFiles.AddRange(todoItemFiles);
+                await context.SaveChangesAsync();
+            }
         }
     }
 }

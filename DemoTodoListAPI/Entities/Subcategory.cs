@@ -10,6 +10,6 @@
         public Guid CategoryId { get; set; }
         public Category? Category { get; set; }
 
-        public IEnumerable<TodoItem> TodoItems { get; set; } = [];
+        public List<TodoItem> TodoItems { get; set; } = new List<TodoItem>();
     }
 }

@@ -9,8 +9,6 @@ namespace DemoTodoListAPI.Entities.Configurations
         {
             builder.ToTable("Tasks");
 
-            builder.HasQueryFilter(x => x.Status == Status.Pending);
-
             builder.Property(prop => prop.Title)
                 .IsRequired()
                 .HasMaxLength(60);

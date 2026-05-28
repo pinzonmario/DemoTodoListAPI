@@ -13,7 +13,7 @@
         public Guid SubcategoryId { get; set; }
         public Subcategory? Subcategory { get; set; }
 
-        public IEnumerable<TodoItemStep> TodoItemSteps { get; set; } = [];
-        public IEnumerable<TodoItemFile> TodoItemFiles { get; set; } = [];
+        public List<TodoItemStep> TodoItemSteps { get; set; } = new List<TodoItemStep>();
+        public List<TodoItemFile> TodoItemFiles { get; set; } = new List<TodoItemFile>();
     }
 }
